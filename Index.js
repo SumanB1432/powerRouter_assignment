@@ -4,14 +4,99 @@
 //    I think that only the new task queue will be needed for this problem, I use map data structure , and iterate over the new task queue, if the map dose not have the current value of the new task queue then map store the value as a key value pairs (ex : 'A':1), If current index value of the new task queue is already present in map , then it only return the Index number of the current Index value and end the for loop.
 
 function taskQueue(oldTask,curInd_oldTask,newTask){
+    // create Map
     let map = new Map();
-    for(let i=0;i<newTask.length;i++){
+    for(let i=0;i<newTask.length;i++){// Iterate over queue
         if(!map.has(newTask[i])){
             map.set(newTask[i],1)
         }
         else{
-            return `index of the Current Index Member in the New Task Queue is :${i+1}`
+            return `index of the Current Index Member in the New Task Queue is :${i+1}`// return ans
         }
     }
 }
 console.log(taskQueue(['A' ,'B' ,'C', 'D' ,'E', 'F' ,'A', 'B' ,'C' ,'D' ,'A', 'B', 'C', 'A' ,'B', 'A'],7,[ 'B', 'C', 'E', 'F',  'B' ,'C','B', 'C' ,'B']))
+
+// Assignment-03:
+	
+// WAP to find the middle element in a singly linked list, where N is the number of nodes in the linked list, and return the middle element or the second middle element if the number of nodes is even? Implement a function getMiddle() that takes a head reference as input and returns the data at the middle node of the linked list.
+
+// ******description of the solution : I first create a class(Node) for create linked list, then I create a linked list class and function like add element in linked list, print element of linked list and the I create a function which return middle of the linked list, I assume two pointer one pointer is slow and another one is fast pointer slow pointer move one step and fast pointer move two step, if value of fast pointer is null then we return slow pointer value and we get the middle of the linked list.
+
+class Node {
+    // constructor
+    constructor(element) {
+        this.element = element;
+        this.next = null
+    }
+}
+// linkedlist class
+class LinkedList {
+    constructor() {
+        this.head = null;
+        this.size = 0;
+    }
+ 
+    // adds an element at the end
+    // of list
+    add(element) {
+        // creates a new node
+        var node = new Node(element);
+ 
+        // to store current node
+        var current;
+ 
+        // if list is Empty add the
+        // element and make it head
+        if (this.head == null)
+            this.head = node;
+        else {
+            current = this.head;
+ 
+            // iterate to the end of the
+            // list
+            while (current.next) {
+                current = current.next;
+            }
+ 
+            // add node
+            current.next = node;
+        }
+        this.size++;
+    }
+    printList() {
+        var curr = this.head;
+        var str = "";
+        while (curr) {
+            str += curr.element + " ";
+            curr = curr.next;
+        }
+        console.log(str);
+    }
+}
+var ll = new LinkedList();
+ll.add(10);
+ll.add(20);
+ll.add(30);
+ll.add(40);
+ll.add(50);
+ll.add(66)
+// ll.printList();
+// console.log(ll.head)
+
+function getMiddle(head){
+    var slow_ptr = head;
+    var fast_ptr = head;
+    if (head != null)
+    {
+        while (fast_ptr != null && fast_ptr.next != null)
+        {
+            fast_ptr = fast_ptr.next.next;
+            slow_ptr = slow_ptr.next;
+        }
+        return slow_ptr.element
+    }
+
+
+}
+console.log(getMiddle(ll.head))
