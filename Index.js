@@ -3,17 +3,30 @@
 // ******description of the solution : I use Java Script for solving the problem , In this problem we need to find out the current active index,essentially the index of the queue member who will get the next task.Its mean that which active person get the next task as fast as possible.In this question old task queue , current index member of old task queue and new task queue, and we need to find out the current index member in new task queue. 
 //    I think that only the new task queue will be needed for this problem, I use map data structure , and iterate over the new task queue, if the map dose not have the current value of the new task queue then map store the value as a key value pairs (ex : 'A':1), If current index value of the new task queue is already present in map , then it only return the Index number of the current Index value and end the for loop.
 
-function taskQueue(oldTask,curInd_oldTask,newTask){
-    // create Map
+function find(old,old_ind,new){
+    let  missing = []
     let map = new Map();
-    for(let i=0;i<newTask.length;i++){// Iterate over queue
-        if(!map.has(newTask[i])){
-            map.set(newTask[i],1)
+    let count = 0
+    for(let i=0;i<new.length;i++){
+        if(!map.has(new[i])){
+            map.set(new[i],1)
         }
         else{
-            return `index of the Current Index Member in the New Task Queue is :${i+1}`// return ans
+            map.set(new[i],map.get(new[i])+1)
         }
     }
+    for(let i=0;i<old.length;i++){
+        if(!map.has(old[i])){
+            missing.push(old[i])
+        }
+    }
+    for(let i=0;i<=old_ind;i++){
+        if(missing.indexof(old[i])!==-1){
+            count+=1
+        }
+    }
+    let current_index =old_ind -count
+    return current_index
 }
 console.log(taskQueue(['A' ,'B' ,'C', 'D' ,'E', 'F' ,'A', 'B' ,'C' ,'D' ,'A', 'B', 'C', 'A' ,'B', 'A'],7,[ 'B', 'C', 'E', 'F',  'B' ,'C','B', 'C' ,'B']))
 
